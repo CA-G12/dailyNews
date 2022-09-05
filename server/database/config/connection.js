@@ -20,7 +20,7 @@ switch (NODE_ENV) {
         connectionString = TEST_DATABASE_URL;
         break;
     default:
-        throw new Error('Database URL invalid');
+        new Error("Database URL invalid");
 }
 
 
