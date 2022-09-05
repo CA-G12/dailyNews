@@ -1,7 +1,7 @@
 const compression = require('compression');
 const cookieParser = require('cookie-parser');
 const express = require('express');
-// const router = require('./routers');
+const router = require('./routers');
 const { join } = require('path');
 
 const app = express();
@@ -13,6 +13,7 @@ app.use(express.urlencoded({
 app.use(cookieParser());
 app.use(compression());
 app.use(express.static(join(__dirname, '..', 'public')));
-// app.use(router);
+
+app.use(router);
 
 module.exports = app;
