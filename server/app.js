@@ -1,6 +1,6 @@
+const express = require('express');
 const compression = require('compression');
 const cookieParser = require('cookie-parser');
-const express = require('express');
 const router = require('./routers');
 const { join } = require('path');
 

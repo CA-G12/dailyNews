@@ -6,7 +6,7 @@ const { NODE_ENV, DATABASE_URL, DEV_DATABASE_URL, TEST_DATABASE_URL } = process.
 let connectionString = "";
 let ssl = false;
 switch (NODE_ENV) {
-    case "production":
+    case "prod":
         connectionString = DATABASE_URL;
         ssl = {
             rejectUnauthorized: false
