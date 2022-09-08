@@ -1,10 +1,8 @@
-const express = require('express');
-const router = express.Router();
-const connection = require('../database/config/connection');
+const router = require('express').Router();
 
-router.get('/home', (req, res) => {
-    res.json({
-        message: 'Welcome to  home page!'
-    })
-})
+const user = require('./users')
+const handle = require('./handling')
+
+router.use(user)
+router.use(handle)
 module.exports = router;
