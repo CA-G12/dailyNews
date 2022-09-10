@@ -36,6 +36,7 @@
     "supertest": "^6.2.4"
   },
   "dependencies": {
+    "cloudinary": "^1.31.0",
     "crypt": "^0.0.2"
   }
 }

@@ -1,6 +1,6 @@
 BEGIN;
 
-DROP TABLE IF EXISTS users, posts, comments, votes, categories, category_post CASCADE;
+DROP TABLE IF EXISTS users, posts, comments, categories, category_post CASCADE;
 
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
@@ -10,51 +10,49 @@ CREATE TABLE users (
     img VARCHAR(500) DEFAULT 'https://drive.google.com/file/d/1-E3EC9ilSq_sgV9xjixjuiv8uL5n0i7D/view?usp=sharing'
 );
 
-CREATE TABLE posts (
-    id SERIAL PRIMARY KEY,
-    img TEXT,
-    content TEXT NOT NULL,
-    creation_time DATE NOT NULL,
-    user_id INT NOT NULL,
-    FOREIGN KEY (user_id) REFERENCES users(id)
+create table posts(
+    id serial primary key,
+    username varchar(100) not null,
+    title varchar(100) not null,
+    content text not null
 );
 
-CREATE TABLE comments (
-    id SERIAL PRIMARY KEY,
-    content TEXT NOT NULL,
-    creation_time DATE NOT NULL,
-    user_id INT NOT NULL,
-    post_id INT NOT NULL,
-    FOREIGN KEY (user_id) REFERENCES users(id),
-    FOREIGN KEY (post_id) REFERENCES posts(id)
+create table comments(
+    id serial primary key,
+    username varchar(100),
+    content text,
+    post_id int,
+    foreign key (post_id) references posts(id) on delete cascade
 );
 
-CREATE TABLE votes (
-    id SERIAL PRIMARY KEY,
-    user_id INT NOT NULL,
-    post_id INT NOT NULL,
-    vote INT NOT NULL DEFAULT 0,
-    FOREIGN KEY (user_id) REFERENCES users(id),
-    FOREIGN KEY (post_id) REFERENCES posts(id)
+create table categories(
+    id serial primary key,
+    name varchar(100) not null,
+    color varchar(100) default 'red'
 );
 
-CREATE TABLE categories (
-    id SERIAL PRIMARY KEY,
-    name VARCHAR(100) NOT NULL,
-    color VARCHAR(100) DEFAULT 'blue'
+create table category_post(
+    id serial primary key,
+    post_id int,
+    category_id int,
+    foreign key (post_id) references posts(id),
+    constraint fk_category_id foreign key (category_id) references categories(id)
+    -- primary key(post_id, category_id)
 );
 
-CREATE TABLE category_post (
-    id SERIAL PRIMARY KEY,
-    post_id INT NOT NULL,
-    category_id INT NOT NULL,
-    FOREIGN KEY (post_id) REFERENCES posts(id),
-    FOREIGN KEY (category_id) REFERENCES categories(id)
-);
+INSERT INTO users(username, email, password, img)
+    VALUES('Mai', 'mai@gmail.com', '123456789', 'https://avatars.githubusercontent.com/u/79872538?v=4'), 
+    ('Karam', 'karam@gmail.com', '85136497', 'https://avatars.githubusercontent.com/u/63299107?v=4');
 
--- INSERT INTO users(username, email, password, img)
---     VALUES('Mai', 'mai@gmail.com', '123456789', 'https://avatars.githubusercontent.com/u/79872538?v=4'), 
---     ('Karam', 'karam@gmail.com', '85136497', 'https://avatars.githubusercontent.com/u/63299107?v=4');
+
+insert into posts(username, title,content) values('ali', 'IDK', 'hello world'), ('ahmed', 'IDK2', 'hello world2');
+insert into comments(username, content,post_id) values('ahmedComment', 'idk', 1),('abdallahComment', 'idk', 1);
+
+insert into categories(name) values('news'),('sports'), ('music');
+
+insert into category_post(post_id, category_id) values(1, 1),(1, 2);
+
+
 
 -- INSERT INTO posts(img, content, creation_time, user_id)
 --     VALUES('https://scontent.fjrs10-1.fna.fbcdn.net/v/t39.30808-6/305214510_5398468983566787_3856778627955621441_n.jpg?stp=dst-jpg_p180x540&_nc_cat=103&ccb=1-7&_nc_sid=8bfeb9&_nc_ohc=lY4h2H9Jxv0AX_PNtoF&tn=qBft96MhCCNnHkUu&_nc_ht=scontent.fjrs10-1.fna&oh=00_AT9csiAfiI5e1jDX-W5uRfYRWVtFRWZwqkYWGFuSdP-fPA&oe=631AA82E', 'Post content 1', '2022-05-22', 1),
@@ -62,12 +60,12 @@ CREATE TABLE category_post (
 
 
 -- INSERT INTO comments (content, creation_time, user_id, post_id)
---     VALUES('Comment content 1', '2022-05-22', 1, 1),
---     ('Comment content 1', '2020-07-16', 2, 2);
+    VALUES('Comment content 1', '2022-05-22', 1, 1),
+    ('Comment content 1', '2020-07-16', 2, 2);
 
 -- INSERT INTO votes(user_id, post_id, vote)
---     VALUES(1, 2, 1),
---     (2, 1, 1);
+    VALUES(1, 2, 1),
+    (2, 1, 1);
 
 -- INSERT INTO categories(name, color) 
 --     VALUES('news', 'red'),
@@ -78,3 +76,47 @@ CREATE TABLE category_post (
 --     (1, 2);
 
 COMMIT;
+
+-- CREATE TABLE votes (
+--     id SERIAL PRIMARY KEY,
+--     user_id INT NOT NULL,
+--     post_id INT NOT NULL,
+--     vote INT NOT NULL DEFAULT 0,
+--     FOREIGN KEY (user_id) REFERENCES users(id),
+--     FOREIGN KEY (post_id) REFERENCES posts(id)
+-- );
+
+-- CREATE TABLE posts (
+--     id SERIAL PRIMARY KEY,
+--     img TEXT,
+--     content TEXT NOT NULL,
+--     creation_time DATE NOT NULL,
+--     user_id INT NOT NULL,
+--     FOREIGN KEY (user_id) REFERENCES users(id)
+-- );
+
+-- CREATE TABLE comments (
+--     id SERIAL PRIMARY KEY,
+--     content TEXT NOT NULL,
+--     creation_time DATE NOT NULL,
+--     user_id INT NOT NULL,
+--     post_id INT NOT NULL,
+--     FOREIGN KEY (user_id) REFERENCES users(id),
+--     FOREIGN KEY (post_id) REFERENCES posts(id)
+-- );
+
+
+
+-- CREATE TABLE categories (
+--     id SERIAL PRIMARY KEY,
+--     name VARCHAR(100) NOT NULL,
+--     color VARCHAR(100) DEFAULT 'blue'
+-- );
+
+-- CREATE TABLE category_post (
+--     id SERIAL PRIMARY KEY,
+--     post_id INT NOT NULL,
+--     category_id INT NOT NULL,
+--     FOREIGN KEY (post_id) REFERENCES posts(id),
+--     FOREIGN KEY (category_id) REFERENCES categories(id)
+-- );

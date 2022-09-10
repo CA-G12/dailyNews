@@ -1,5 +1,6 @@
 const { join } = require('path')
 const router = require('express').Router();
+const { checkAuth } = require('../middleWares')
 
 // Handle index Page (landingPage 'default')
 router.get('/', (req, res) => {
@@ -25,6 +26,7 @@ router.get('/home', (req, res) => {
 router.get(`/user/:id`, (req, res) => {
     res.sendFile(join(__dirname, '..', '..', 'public', 'pages', 'home.html'));
 });
+
 
 // Handle Logout Page
 router.get('/logout', (req, res) => {
