@@ -5,6 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>landing page</title>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 </head>
 <body>
     <h1>Hello World!</h1>
@@ -12,7 +14,34 @@
     <a href="/signup">Sign Up</a>
     <a href="/signin">Sign in</a>
 
-    
-    <script src="./js/main.js"></script>
+    <h1>Posts</h1>
+
+
+    <form>
+        <input type="text" name="title" id="username" placeholder="username">
+        <br>
+        <br>
+        <input type="text" name="title" id="title" placeholder="title">
+        <br>
+        <br>
+        <textarea id="content" cols="30" rows="10" placeholder="content"></textarea>
+        <br>
+        <select id="categories" multiple></select>
+        <br>
+        <br>
+        <button type="button" id="save-button">Save</button>
+    </form>
+
+
+    <div id="posts">
+        <section>
+            <h2>post user</h2>
+            <h3>post title</h3>
+            <p>content</p>
+        </section>
+    </div>
+
+
+    <script src="./app.js"></script>
 </body>
 </html>
